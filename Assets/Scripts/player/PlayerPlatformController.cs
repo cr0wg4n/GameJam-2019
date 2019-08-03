@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class PlayerPlatformController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float speed = 10f;
+    float jump = 6.5f;
+    private Rigidbody2D rgb2D;
     void Start()
     {
-        
+        rgb2D = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
+            rgb2D.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+        }
+    }
+    private void FixedUpdate()
+    {
+        Vector3 mov = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + mov, speed * Time.deltaTime);
+
     }
 }
