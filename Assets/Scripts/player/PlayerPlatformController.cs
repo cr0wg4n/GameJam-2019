@@ -16,6 +16,11 @@ public class PlayerPlatformController : MonoBehaviour
     private int lastTime = 0;
     private bool jumpFlag = false;
     private Animator anim;
+
+    public List<KeyCode> shootButton;
+    private float timeUntilNextFire = 0.0f;
+    public float timeBetweenFires = 0.3f;
+
     void Start()
     {
         rgb2D = GetComponent<Rigidbody2D>();
@@ -32,7 +37,7 @@ public class PlayerPlatformController : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(0))
         {
-            disparo();
+            fire();
         }
 
         if (Input.GetKeyDown("right") || Input.GetKeyDown(KeyCode.D))
@@ -73,13 +78,28 @@ public class PlayerPlatformController : MonoBehaviour
         return lastTime;
     }
 
-    void disparo()
+    void fire()
+    {
+        //if (timeUntilNextFire < 0)
+        //{
+            timeUntilNextFire = timeBetweenFires;
+            shoot();
+        //}
+        timeUntilNextFire -= Time.deltaTime;
+    }
+
+    void shoot()
     {
         GameObject p = Instantiate(projectile, new Vector3(transform.position.x, transform.position.y, 0.0f), Quaternion.identity);
         Projectile pro = p.AddComponent<Projectile>();
-        pro.orientation = orientation;
-        pro.y = transform.position.y;
+        //pro.orientation = orientation;
+        //pro.y = transform.position.y;
         pro.speed = 15f;
+        pro.destine = Input.mousePosition;
+        //pro.destine = Camera.main.ScreenToWorldPoint(pro.destine);
+        pro.destine.x = pro.destine.x - 240;
+        pro.destine.y = pro.destine.y - 110;
+        //GameObject p = Instantiate(projectile, new Vector3(transform.position.x, transform.position.y, 0.0f), Quaternion.identity);
     }
     void OnTriggerEnter2D(Collider2D col) {
         if (col.tag == "ground") {
