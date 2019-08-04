@@ -22,7 +22,7 @@ public class Villager : MonoBehaviour
 
         //for (int i=0 ; i<rnd; i++)
         //{
-            transform.position = Vector3.MoveTowards(transform.position, new Vector2(x, y), velocidad * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(x, y,-2f), velocidad * Time.deltaTime);
         //}
 
         if(transform.position.x == x && transform.position.y == y)

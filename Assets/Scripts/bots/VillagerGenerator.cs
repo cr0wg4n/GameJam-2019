@@ -14,7 +14,7 @@ public class VillagerGenerator : MonoBehaviour
     {
         Debug.Log("Start");
 
-        int n = Random.Range(2, 6);
+        int n = Random.Range(2, 3);
         for (int i=0; i<n ; i++)
         {
             int villagerType = (int)Random.Range(0, 1);
@@ -50,7 +50,7 @@ public class VillagerGenerator : MonoBehaviour
         {
             y = Random.Range(1.3f, 6.0f);
         }
-        Vector3 res = new Vector3(x, y, 0.0f);
+        Vector3 res = new Vector3(x, y,-2f);
         return res;
     }
 }
